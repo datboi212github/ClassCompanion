@@ -1,5 +1,5 @@
 
-export class Queue {
+export default class Queue {
 
   /** The constructor for the queue
    * elements: list of the elements inside the queue
