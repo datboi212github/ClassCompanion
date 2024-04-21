@@ -1,5 +1,8 @@
+require('dotenv').config();
+const OpenAI = require('openai');
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-export class Queue {
+export default class Queue {
 
   /** The constructor for the queue
    * elements: list of the elements inside the queue
@@ -48,5 +51,26 @@ export class Queue {
   getQueue() {
     return this.elements;
   }
+
+  /** Checks if the queue is full (has 5 elements)
+   * Parameters: none
+   * Return: True if queue has 5 elements
+   */
+  checkFull(){
+    if (this.elements.lenght >= 5){
+      return true;
+    }
+    return false;
+  }
+
+  processQueue() {
+    const completion = openai.chat.completions.create({
+      messages: [{ role: "system", content: "You are a helpful assistant." }],
+      model: "gpt-3.5-turbo-0125",
+    });
   
+    console.log(completion.choices[0].message.content);
+  }
+
 }
+
